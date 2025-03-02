@@ -10,10 +10,10 @@ const useFonts = () => {
     const loadFonts = async () => {
       try {
         await Font.loadAsync({
-          SpGtskLight: require("../assets/fonts/SpaceGrotesk_300Light.ttf"),
-          SpGtskReg: require("../assets/fonts/SpaceGrotesk_400Regular.ttf"),
-          SpGtskMid: require("../assets/fonts/SpaceGrotesk_500Medium.ttf"),
-          SpGtskSMBold: require("../assets/fonts/SpaceGrotesk_600SemiBold.ttf"),
+          SGTLight: require("../assets/fonts/SpaceGrotesk_300Light.ttf"),
+          SGTReg: require("../assets/fonts/SpaceGrotesk_400Regular.ttf"),
+          SGTMid: require("../assets/fonts/SpaceGrotesk_500Medium.ttf"),
+          SGTsmBold: require("../assets/fonts/SpaceGrotesk_600SemiBold.ttf"),
         });
       } catch (e) {
         console.log("Error in useFont hooks", e);

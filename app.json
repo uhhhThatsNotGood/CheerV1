@@ -2,16 +2,19 @@
   "expo": {
     "name": "CheerV1",
     "slug": "CheerV1",
-    "scheme":"skcheerv1",
+    "scheme":"cheerv1",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/PrimaryIcon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "androidStatusBar": {
+      "translucent": true
     },
     "ios": {
       "supportsTablet": true
@@ -22,6 +25,10 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "androidNavigationBar": {
+      "visible": "sticky-immersive"
+    }
+    ,
     "plugins": [
       "expo-asset",
       "expo-router"
