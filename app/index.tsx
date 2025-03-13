@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,11 +7,10 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import "../global.css";
 import { Styles } from "../hooks/styles";
@@ -52,7 +52,7 @@ const App: React.FC = () => {
       storeData("seat", seat);
       storeData("position", position);
       storeData("isLoggedIn", "true");
-      router.push("home");
+      router.push("choose");
     } else {
       Alert.alert("Error", "Incorrect Data");
     }
@@ -69,7 +69,7 @@ const App: React.FC = () => {
       if (seatVale && posValue) {
         setSeat(seatVale);
         setPosition(posValue);
-        router.push("home");
+        router.push("choose");
       } else {
         Alert.alert("Error", "Data not found");
       }
@@ -86,55 +86,53 @@ const App: React.FC = () => {
 
   return (
     <LinearGradient
-      colors={["#0d3d6b", "#1a1a1a","#1a1a1a", "#800852"]}
-      locations={[0, 0.4,0.6, 1]}
-      className="flex-1"
+      colors={["#0d3d6b", "#1a1a1a", "#1a1a1a", "#800852"]}
+      locations={[0, 0.4, 0.6, 1]}
+      style={{ flex: 1 }}
     >
-      <SafeAreaView>
-        <ScrollView>
-          <View style={Styles.Container}>
-            <Text style={Styles.Title}>Log In</Text>
+      <ScrollView>
+        <SafeAreaView style={Styles.Container}>
+          <Text style={Styles.Text64}>Log In</Text>
 
-            <Text style={Styles.Label}>Seat</Text>
+          <Text style={[Styles.Text32, Styles.Pad20]}>Seat</Text>
 
-            <TextInput
-              placeholder="A"
-              maxLength={1}
-              value={seat}
-              onChangeText={setSeat}
-              placeholderTextColor={"#808080"}
-              className="text-3xl border-2 bg-slate-900/50 focus:bg-slate-950/90 focus:border-slate-900 focus:scale-105
-         border-white w-80 h-24 rounded-lg text-center color-white font-SpGtskReg"
-            />
-            <Text style={Styles.Label}>Seat No.</Text>
-            <TextInput
-              placeholder="00"
-              maxLength={2}
-              value={position}
-              onChangeText={setPosition}
-              placeholderTextColor={"#808080"}
-              keyboardType="numeric"
-              className="text-3xl border-2 bg-slate-900/50 focus:bg-slate-950/90 focus:border-slate-900 focus:scale-105
-         border-white w-80 h-24 rounded-lg text-center color-white font-SpGtskMid"
-            />
+          <TextInput
+            placeholder="A"
+            maxLength={1}
+            value={seat}
+            onChangeText={setSeat}
+            placeholderTextColor={"#808080"}
+            className="bg-black focus:bg-slate-950/90 focus:border-slate-900 focus:scale-105"
+            style={Styles.TextInput}
+          />
+          <Text style={[Styles.Text32, Styles.Pad20]}>Seat No.</Text>
+          <TextInput
+            placeholder="00"
+            maxLength={2}
+            value={position}
+            onChangeText={setPosition}
+            placeholderTextColor={"#808080"}
+            keyboardType="numeric"
+            className="bg-black focus:bg-slate-950/90 focus:border-slate-900 focus:scale-105"
+            style={Styles.TextInput}
+          />
 
-            <TouchableOpacity onPress={CheckInfo} style={Styles.Submit}>
-              <Text style={Styles.TextButton}>Let's Go!</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={CheckInfo} style={Styles.Submit}>
+            <Text style={Styles.Text24}>Let's Go!</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity onPress={CheckFormerLogin} style={Styles.Submit}>
-              <Text style={Styles.TextButton}>Previous Login</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={CheckFormerLogin} style={Styles.Submit}>
+            <Text style={Styles.Text24}>Previous Login</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={clearAsync}
-              style={[Styles.Submit, { backgroundColor: "#992222" }]}
-            >
-              <Text style={Styles.TextButton}>Clear Login Data</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+          <TouchableOpacity
+            onPress={clearAsync}
+            style={[Styles.Submit, { backgroundColor: "#992222" }]}
+          >
+            <Text style={Styles.Text24}>Clear Login Data</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </ScrollView>
     </LinearGradient>
   );
 };

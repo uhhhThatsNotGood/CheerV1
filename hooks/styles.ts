@@ -5,34 +5,59 @@ export const Styles = ScaledSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  SubGradient: {
-    position: "absolute",
-    backgroundColor: "white",
-    border: 1,
-    borderColor: "red",
+  Text72: {
+    fontSize: "72@ms",
+    color: "white",
+    fontFamily: "SGTMid",
   },
-  Title: {
+  Text64: {
     fontSize: "64@ms",
     color: "white",
     fontFamily: "SGTMid",
-    paddingTop: "12@ms",
   },
-  Label: {
+  Text48: {
+    fontSize: "48@ms",
+    color: "white",
+    fontFamily: "SGTMid",
+  },
+  Text40: {
+    fontSize: "40@ms",
+    color: "white",
+    fontFamily: "SGTMid",
+  },
+  Text32: {
     fontSize: "32@ms",
     color: "white",
-    fontFamily: "SGTReg",
-    textAlign: "center",
-    padding: "20@ms",
+    fontFamily: "SGTMid",
   },
-  InputBox: {
-    fontSize: "24@ms",
-    border: 2,
-    backgroundColor: "rgba(15,23,42,0.5)",
-  },
-  TextButton: {
+  Text24: {
     color: "white",
     fontSize: "24@ms",
     fontFamily: "SGTMid",
+  },
+  Pad20: {
+    paddingVertical: "20@ms",
+  },
+  Mg24: {
+    marginVertical: "24@ms",
+  },
+  SMBoldCenter: {
+    fontFamily: "SGTsmBold",
+    textAlign: "center",
+  },
+  Reg: {
+    fontFamily: "SGTReg",
+  },
+  TextInput: {
+    fontSize: "32@ms",
+    fontFamily: "SGTMid",
+    color: "white",
+    textAlign: "center",
+    borderRadius: "8@ms",
+    border: "4@ms",
+    borderColor: "white",
+    width: "260@ms",
+    height: "76@ms",
   },
   Submit: {
     justifyContent: "center",
@@ -43,11 +68,69 @@ export const Styles = ScaledSheet.create({
     marginTop: "28@ms",
     borderRadius: "8@ms",
   },
-  FlexGrow: {
-    flex: 1,
-    flexGrow: 1,
-    flexDirection: "column",
-    alignContent: "center",
+  Choose: {
+    alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#552ba4",
+    width: "260@ms",
+    height: "240@ms",
+    borderRadius: "8@ms",
+    marginVertical: "28@ms",
+  },
+  GlobalBackButton: {
+    borderRadius: "9@ms",
+    position: "absolute",
+    width: "32@ms",
+    height: "32@ms",
+    top: "24@ms",
+    left: "32@ms",
+  },
+  //
+
+  NumPad: {
+    width: "84@ms",
+    height: "84@ms",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
+    borderRadius: "12@ms",
+    borderWidth: "1@ms",
+    borderColor: "222222",
+    margin: "8@ms",
+  },
+  GoButton: {
+    width: "260@ms",
+    height: "80@ms",
+    marginVertical: "16@ms",
+  },
+  //
+  X20Pixel: {
+    width: "60@ms",
+    height: "64@ms",
+    border: 1,
+    borderColor:"gray",
+    borderWidth: "2@ms",
+    borderRadius: "4@ms",
+    margin: "4@ms",
+    justifyContent: "center",
+  },
+  boRad: {
+    borderRadius: "8@ms",
+    borderWidth: "4@ms",
+    borderColor: "rgba(0,0,0,0)",
+  },
+  X1Pixel: {
+    width: "280@ms",
+    height: "280@ms",
+    marginVertical: "12@ms",
+  },
+  //
+  ImgX20: {
+    width: "320@ms",
+    height: "160@ms",
+  },
+  ImgX1: {
+    width: "280@ms",
+    height: "120@ms",
   },
 });
