@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import "../global.css";
 import { Styles } from "../hooks/styles";
+import { BackButton } from "../components/BackButton";
 
 const Home = () => {
   const router = useRouter();
@@ -39,13 +40,8 @@ const Home = () => {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={Styles.GlobalBackButton}
-        >
-          <Text style={Styles.Text32}>{"<"}</Text>
-        </TouchableOpacity>
-        <View style={[Styles.Mg24, { alignItems: "center" }]}>
+        <BackButton />
+        <View style={[Styles.Mg40, { alignItems: "center", flex: 1 }]}>
           <Text style={[Styles.Text48]}>
             Welcome {seat}
             {parseInt(position, 10)}

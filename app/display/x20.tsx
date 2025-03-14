@@ -1,6 +1,6 @@
-import { View, Alert, Text, TouchableOpacity, Image } from "react-native";
+import { View, Alert, Text, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
@@ -9,24 +9,16 @@ import { Asset } from "expo-asset";
 import "../../global.css";
 import { Styles } from "../../hooks/styles";
 
-import { toHexString, getPixel32, colorToNameX20 } from "../../hooks/BMPutils";
+import { toHexString, getPixel32 } from "../../hooks/BMPutils";
 import { imageMapX20 } from "../../hooks/getImage";
+import { X20Segments } from "../../components/X20Segments";
+import { BackButton } from "../../components/BackButton";
 
 const seatToIndex = (seat: string) => {
   return 4 * (seat.toUpperCase().charCodeAt(0) - 65);
 };
 const posToIndex = (pos: string) => {
   return 5 * (parseInt(pos, 10) - 1);
-};
-
-const getContrast = (hex: string) => {
-  const color = hex.replace(/^#/, "");
-
-  const r = parseInt(color.substring(0, 2), 16);
-  const g = parseInt(color.substring(2, 4), 16);
-  const b = parseInt(color.substring(4, 6), 16);
-  const brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return brightness > 0.5 ? "#000000" : "#FFFFFF";
 };
 
 const getRegion = (
@@ -51,7 +43,6 @@ const getRegion = (
 
 const X20display = () => {
   const { imgID } = useLocalSearchParams() as { imgID: string };
-  const router = useRouter();
   const [seat, setSeat] = useState<string>("");
   const [position, setPosition] = useState<string>("");
   const [regionColor, setRegionColor] = useState<string[][] | null>(null);
@@ -118,12 +109,7 @@ const X20display = () => {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={Styles.GlobalBackButton}
-        >
-          <Text style={Styles.Text32}>{"<"}</Text>
-        </TouchableOpacity>
+        <BackButton />
         <View style={{ alignItems: "center", flex: 1 }}>
           <Text style={[Styles.Text40, Styles.SMBoldCenter, Styles.Pad20]}>
             {" "}
@@ -137,25 +123,7 @@ const X20display = () => {
                 return (
                   <View key={rowIndex} className="flex flex-row">
                     {row.map((color, colIndex) => {
-                      const contrasted: string = getContrast(color);
-                      return (
-                        <View
-                          key={colIndex}
-                          style={[Styles.X20Pixel, { backgroundColor: color }]}
-                        >
-                          <Text
-                            style={[
-                              Styles.Text24,
-                              Styles.SMBoldCenter,
-                              { color: contrasted },
-                            ]}
-                          >
-                            {color
-                              ? colorToNameX20(color)
-                              : "Loading hex data..."}
-                          </Text>
-                        </View>
-                      );
+                      return <X20Segments key={colIndex} color={color} />;
                     })}
                   </View>
                 );

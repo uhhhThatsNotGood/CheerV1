@@ -1,11 +1,12 @@
 import { View, Text, TouchableOpacity, Alert } from "react-native";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
 
 import "../global.css";
 import { Styles } from "../hooks/styles";
+import { BackButton } from "../components/BackButton";
 
 const ImageID = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -52,19 +53,14 @@ const ImageID = () => {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={Styles.GlobalBackButton}
-        >
-          <Text style={Styles.Text32}>{"<"}</Text>
-        </TouchableOpacity>
+        <BackButton />
         <View style={Styles.Container}>
           <Text style={[Styles.Text48, Styles.Pad20, Styles.SMBoldCenter]}>
             ( 1 : {id} ){"\n"}
             {input || "_ _"}
           </Text>
-          <View className="flex-1 flex-row flex-shrink flex-wrap items-center justify-center">
-            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((num, index) => (
+          <View className="flex-1 flex-row flex-shrink flex-wrap items-center justify-center w-[80%]">
+            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((num) => (
               <TouchableOpacity
                 key={num}
                 style={Styles.NumPad}

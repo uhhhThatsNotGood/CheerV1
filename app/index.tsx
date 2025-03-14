@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  View,
   Text,
   Alert,
   TouchableOpacity,
@@ -92,7 +91,7 @@ const App: React.FC = () => {
     >
       <ScrollView>
         <SafeAreaView style={Styles.Container}>
-          <Text style={Styles.Text64}>Log In</Text>
+          <Text style={[Styles.Text64, Styles.MgT16]}>Log In</Text>
 
           <Text style={[Styles.Text32, Styles.Pad20]}>Seat</Text>
 

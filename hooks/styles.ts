@@ -38,8 +38,11 @@ export const Styles = ScaledSheet.create({
   Pad20: {
     paddingVertical: "20@ms",
   },
-  Mg24: {
-    marginVertical: "24@ms",
+  Mg40: {
+    marginVertical: "40@ms",
+  },
+  MgT16: {
+    marginTop: "16@ms",
   },
   SMBoldCenter: {
     fontFamily: "SGTsmBold",
@@ -78,12 +81,12 @@ export const Styles = ScaledSheet.create({
     marginVertical: "28@ms",
   },
   GlobalBackButton: {
-    borderRadius: "9@ms",
+    borderRadius: "8@ms",
     position: "absolute",
     width: "32@ms",
     height: "32@ms",
-    top: "24@ms",
-    left: "32@ms",
+    top: "20@ms",
+    left: "28@ms",
   },
   //
 
@@ -94,7 +97,7 @@ export const Styles = ScaledSheet.create({
     alignItems: "center",
     backgroundColor: "black",
     borderRadius: "12@ms",
-    borderWidth: "1@ms",
+    borderWidth: "2@ms",
     borderColor: "222222",
     margin: "8@ms",
   },
@@ -108,7 +111,7 @@ export const Styles = ScaledSheet.create({
     width: "60@ms",
     height: "64@ms",
     border: 1,
-    borderColor:"gray",
+    borderColor: "gray",
     borderWidth: "2@ms",
     borderRadius: "4@ms",
     margin: "4@ms",

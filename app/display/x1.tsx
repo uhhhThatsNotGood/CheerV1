@@ -1,6 +1,6 @@
-import { View, Alert, Text, Image, TouchableOpacity } from "react-native";
+import { View, Alert, Text, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
@@ -11,6 +11,7 @@ import { Styles } from "../../hooks/styles";
 
 import { toHexString, getPixel24, colorToNameX1 } from "../../hooks/BMPutils";
 import { imageMapX1 } from "../../hooks/getImage";
+import { BackButton } from "../../components/BackButton";
 
 const seatToIndex = (seat: string) => {
   return seat.toUpperCase().charCodeAt(0) - 65;
@@ -23,7 +24,6 @@ const Display = () => {
   const { imgID } = useLocalSearchParams() as {
     imgID?: string;
   };
-  const router = useRouter();
   const [seat, setSeat] = useState<string>("");
   const [position, setPosition] = useState<string>("");
   const [pixelColor, setPixelColor] = useState<string | null>(null);
@@ -90,12 +90,7 @@ const Display = () => {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={Styles.GlobalBackButton}
-        >
-          <Text style={Styles.Text32}>{"<"}</Text>
-        </TouchableOpacity>
+        <BackButton />
         <View style={{ alignItems: "center" }}>
           <Text style={[Styles.Text40, Styles.SMBoldCenter, Styles.Pad20]}>
             {" "}
