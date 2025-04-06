@@ -1,5 +1,5 @@
 export const toHexString = (uint8Arr: Uint8Array) => {
-  return Array.from(uint8Arr, (byte) =>
+  return Array.from(uint8Arr, byte =>
     byte.toString(16).padStart(2, "0")
   ).join("");
 };
@@ -128,7 +128,6 @@ export const colorToNameX20 = (hex: string | null) => {
       return "29";
     case "000000":
       return "30";
-
     default:
       return "Not found";
   }

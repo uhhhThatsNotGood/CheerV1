@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+
 interface stateProps {
   setSeat: React.Dispatch<React.SetStateAction<string>>;
   setPosition: React.Dispatch<React.SetStateAction<string>>;
@@ -47,7 +48,6 @@ export const InfoHook = (
     storeData("position", position);
     storeData("isLoggedIn", "true");
     router.push(`${location}`);
-    console.log("EEEEEEEE");
     return "";
   } else {
     return "err";
