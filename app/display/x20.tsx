@@ -9,13 +9,13 @@ import { Asset } from "expo-asset";
 import "../../global.css";
 import { Styles } from "../../hooks/styles";
 
-import { toHexString, getPixel32 } from "../../hooks/BMPutils";
+import { toHexString, getPixel32 } from "../../hooks/bmpUtils";
 import { imageMapX20 } from "../../hooks/getImage";
 import { X20Segments } from "../../components/X20Segments";
 import { BackButton } from "../../components/BackButton";
 
 const seatToIndex = (seat: string) => {
-  return 4 * (seat.toUpperCase().charCodeAt(0) - 65);
+  return 4 * (seat.charCodeAt(0) - 65);
 };
 const posToIndex = (pos: string) => {
   return 5 * (parseInt(pos, 10) - 1);
@@ -130,7 +130,7 @@ const X20display = () => {
               })}
             </View>
           ) : (
-            <Text style={Styles.Text40}>Loading pixel grid...</Text>
+            <Text style={[Styles.Text40,Styles.LoadingBox]}>Loading pixel grid...</Text>
           )}
 
           <Text style={Styles.Text32}>Current Image</Text>

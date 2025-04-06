@@ -136,4 +136,10 @@ export const Styles = ScaledSheet.create({
     width: "280@ms",
     height: "120@ms",
   },
+  LoadingBox: {
+    width: "280@ms",
+    height: "280@ms",
+    textAlign: "center",
+  },
+  //
 });

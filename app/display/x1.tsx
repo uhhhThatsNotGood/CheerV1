@@ -9,12 +9,12 @@ import { Asset } from "expo-asset";
 import "../../global.css";
 import { Styles } from "../../hooks/styles";
 
-import { toHexString, getPixel24, colorToNameX1 } from "../../hooks/BMPutils";
+import { toHexString, getPixel24, colorToNameX1 } from "../../hooks/bmpUtils";
 import { imageMapX1 } from "../../hooks/getImage";
 import { BackButton } from "../../components/BackButton";
 
 const seatToIndex = (seat: string) => {
-  return seat.toUpperCase().charCodeAt(0) - 65;
+  return seat.charCodeAt(0) - 65;
 };
 const posToIndex = (pos: string) => {
   return parseInt(pos, 10) - 1;
@@ -116,7 +116,7 @@ const Display = () => {
               resizeMethod="scale"
             />
           ) : (
-            <Text style={Styles.Text32}>Loading...</Text>
+            <Text style={[Styles.Text32, Styles.LoadingBox]}>Loading...</Text>
           )}
         </View>
       </SafeAreaView>

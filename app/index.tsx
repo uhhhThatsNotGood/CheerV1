@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Text,
   Alert,
@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import "../global.css";
+import { fLogHook, InfoHook } from "../hooks/storageLogic";
 import { Styles } from "../hooks/styles";
 
 const App: React.FC = () => {
@@ -19,63 +20,26 @@ const App: React.FC = () => {
   const [seat, setSeat] = useState<string>("");
   const [position, setPosition] = useState<string>("");
 
-  const isNumber = (input: string): boolean => {
-    return /^\d{1,2}$/.test(input);
-  };
-  const isAlphabet = (input: string): boolean => {
-    return /^[A-Z]$/.test(input.toUpperCase());
-  };
-  const storeData = async (key: string, value: string) => {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (e) {
-      Alert.alert("Error", "Saving data failed");
-    }
-  };
-  const readData = async (key: string) => {
-    try {
-      return await AsyncStorage.getItem(key);
-    } catch (e) {
-      Alert.alert("Error", "Retrieving data failed");
-    }
-  };
-  const CheckInfo = () => {
-    if (
-      isNumber(position) &&
-      isAlphabet(seat) &&
-      position !== "0" &&
-      position !== "00" &&
-      parseInt(position) < 51 &&
-      seat.toUpperCase() !== "Z"
-    ) {
-      storeData("seat", seat);
-      storeData("position", position);
-      storeData("isLoggedIn", "true");
-      router.push("choose");
-    } else {
-      Alert.alert("Error", "Incorrect Data");
+  useEffect(() => {
+    setSeat(seat.toUpperCase());
+  }, [seat]);
+
+  const CheckInfo =  () => {
+    const value = InfoHook(seat, position, "choose", router);
+    console.log(seat, position, "aaaa");
+    if (value == "err") {
+      Alert.alert("Error", "Incorrect input.");
     }
   };
   const CheckFormerLogin = async () => {
-    try {
-      const formerData = await readData("isLoggedIn");
-      if (!formerData) {
-        Alert.alert("Error", "No previous data existed");
-        return;
-      }
-      const seatVale = await readData("seat");
-      const posValue = await readData("position");
-      if (seatVale && posValue) {
-        setSeat(seatVale);
-        setPosition(posValue);
-        router.push("choose");
-      } else {
-        Alert.alert("Error", "Data not found");
-      }
-    } catch (e) {
-      Alert.alert("Error", "Error loading previous data");
+    const value = await fLogHook({ setSeat, setPosition }, "choose", router);
+    if (value == "NULL") {
+      Alert.alert("Error", "No previous login found.");
+    } else if (value == "err") {
+      Alert.alert("Error", "Error loading previos login");
     }
   };
+
   const clearAsync = () => {
     AsyncStorage.clear();
     setSeat("");
