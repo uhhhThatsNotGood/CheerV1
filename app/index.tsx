@@ -1,102 +1,107 @@
-import { useEffect, useState } from "react";
-import {
-  Text,
-  Alert,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import React, { useEffect, useState } from "react";
+import { Text, TouchableOpacity, ScrollView, TextInput } from "react-native";
 import { useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import "../global.css";
-import { fLogHook, InfoHook } from "../hooks/storageLogic";
+import { MyAlert } from "../components/newAlert";
+import { InfoHook } from "../hooks/storageLogic";
 import { Styles } from "../hooks/styles";
 
 const App: React.FC = () => {
   const router = useRouter();
+  const [isVisible, setVisible] = useState<boolean>(false);
   const [seat, setSeat] = useState<string>("");
   const [position, setPosition] = useState<string>("");
+
+  let alertT: string = "Error";
+  let alertM: string = "Error Message";
 
   useEffect(() => {
     setSeat(seat.toUpperCase());
   }, [seat]);
 
-  const CheckInfo =  () => {
-    const value = InfoHook(seat, position, "choose", router);
-    console.log(seat, position, "aaaa");
-    if (value == "err") {
-      Alert.alert("Error", "Incorrect input.");
-    }
-  };
-  const CheckFormerLogin = async () => {
-    const value = await fLogHook({ setSeat, setPosition }, "choose", router);
-    if (value == "NULL") {
-      Alert.alert("Error", "No previous login found.");
-    } else if (value == "err") {
-      Alert.alert("Error", "Error loading previos login");
-    }
+  const ShowAlert = (Topic: string, Message: string) => {
+    alertT = Topic;
+    alertM = Message;
+    setVisible(true);
   };
 
-  const clearAsync = () => {
-    AsyncStorage.clear();
-    setSeat("");
-    setPosition("");
-    Alert.alert("Data cleared");
+  const CheckInfo = () => {
+    const value = InfoHook(seat, position, "choose", router);
+    if (value == "err") {
+      ShowAlert("Error", "Incorrect Input");
+    }
   };
+  // const CheckFormerLogin = async () => {
+  //   const value = await fLogHook({ setSeat, setPosition }, "choose", router);
+  //   if (value == "NULL") {
+  //     Alert.alert("Error", "No previous login found.");
+  //   } else if (value == "err") {
+  //     Alert.alert("Error", "Error loading previos login");
+  //   }
+  // };
+
+  // const clearAsync = () => {
+  //   AsyncStorage.clear();
+  //   setSeat("");
+  //   setPosition("");
+  //   Alert.alert("Data cleared");
+  // };
 
   return (
-    <LinearGradient
-      colors={["#0d3d6b", "#1a1a1a", "#1a1a1a", "#800852"]}
-      locations={[0, 0.4, 0.6, 1]}
-      style={{ flex: 1 }}
-    >
-      <ScrollView>
+    <>
+      <ScrollView style={{ backgroundColor: "#000000" }}>
         <SafeAreaView style={Styles.Container}>
-          <Text style={[Styles.Text64, Styles.MgT16]}>Log In</Text>
+          <Text style={[Styles.Text48, Styles.MgT16]}>
+            {" "}
+            Welcome to {"\n"}SkCheer
+          </Text>
+          <Text style={[Styles.Text24, { fontFamily: "SGTReg" }]}>
+            Enter your seat
+          </Text>
 
-          <Text style={[Styles.Text32, Styles.Pad20]}>Seat</Text>
+          <Text style={[Styles.Text32, Styles.Pad20]}>Row</Text>
 
           <TextInput
-            placeholder="A"
+            placeholder="A - Y"
             maxLength={1}
             value={seat}
             onChangeText={setSeat}
-            placeholderTextColor={"#808080"}
-            className="bg-black focus:bg-slate-950/90 focus:border-slate-900 focus:scale-105"
+            placeholderTextColor={"#999999"}
+            className="border-4 border-pink-300 bg-pink-950 focus:scale-105 "
             style={Styles.TextInput}
           />
-          <Text style={[Styles.Text32, Styles.Pad20]}>Seat No.</Text>
+          <Text style={[Styles.Text32, Styles.Pad20]}>Column</Text>
           <TextInput
-            placeholder="00"
+            placeholder="1 - 50"
             maxLength={2}
             value={position}
             onChangeText={setPosition}
-            placeholderTextColor={"#808080"}
+            placeholderTextColor={"#999999"}
             keyboardType="numeric"
-            className="bg-black focus:bg-slate-950/90 focus:border-slate-900 focus:scale-105"
+            className="border-4 border-blue-400 bg-blue-950 focus:scale-105"
             style={Styles.TextInput}
           />
 
-          <TouchableOpacity onPress={CheckInfo} style={Styles.Submit}>
-            <Text style={Styles.Text24}>Let's Go!</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={CheckFormerLogin} style={Styles.Submit}>
-            <Text style={Styles.Text24}>Previous Login</Text>
-          </TouchableOpacity>
-
           <TouchableOpacity
-            onPress={clearAsync}
-            style={[Styles.Submit, { backgroundColor: "#992222" }]}
+            onPress={CheckInfo}
+            style={[Styles.Submit, Styles.MgT64]}
+            className="border-4 border-[#DDDDDD]"
           >
-            <Text style={Styles.Text24}>Clear Login Data</Text>
+            <Text style={[Styles.Text32, { color: "#FFFFFF" }]}>Let's Go!</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
-    </LinearGradient>
+      {isVisible && (
+        <MyAlert
+          isVisible={isVisible}
+          setVisible={setVisible}
+          Topic={alertT}
+          Message={alertM}
+        />
+      )}
+    </>
   );
 };
 

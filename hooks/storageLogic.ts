@@ -1,10 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 
-interface stateProps {
-  setSeat: React.Dispatch<React.SetStateAction<string>>;
-  setPosition: React.Dispatch<React.SetStateAction<string>>;
-}
+// type stateProps = {
+//   setSeat: React.Dispatch<React.SetStateAction<string>>;
+//   setPosition: React.Dispatch<React.SetStateAction<string>>;
+// };
 
 const isNumber = (input: string): boolean => {
   return /^\d{1,2}$/.test(input);
@@ -46,7 +46,6 @@ export const InfoHook = (
   ) {
     storeData("seat", seat);
     storeData("position", position);
-    storeData("isLoggedIn", "true");
     router.push(`${location}`);
     return "";
   } else {
@@ -54,27 +53,26 @@ export const InfoHook = (
   }
 };
 
-export const fLogHook = async (
-  { setSeat, setPosition }: stateProps,
-  location: string,
-  router: ReturnType<typeof useRouter>
-) => {
-  try {
-    const formerData = await readData("isLoggedIn");
-    if (formerData == "NULL") {
-      return "NULL";
-    }
-    const seatVale = await readData("seat");
-    const posValue = await readData("position");
-    if (seatVale && posValue) {
-      setSeat(seatVale);
-      setPosition(posValue);
-      router.push(`${location}`);
-      return "";
-    } else {
-      return "err";
-    }
-  } catch (e) {
-    return "err";
-  }
-};
+// export const fLogHook = async (
+//   { setSeat, setPosition }: stateProps,
+//   location: string,
+// ) => {
+//   try {
+//     const formerData = await readData("isLoggedIn");
+//     if (formerData == "NULL") {
+//       return "NULL";
+//     }
+//     const seatVale = await readData("seat");
+//     const posValue = await readData("position");
+//     if (seatVale && posValue) {
+//       setSeat(seatVale);
+//       setPosition(posValue);
+//       router.push(`${location}`);
+//       return "";
+//     } else {
+//       return "err";
+//     }
+//   } catch (e) {
+//     return "err";
+//   }
+// };

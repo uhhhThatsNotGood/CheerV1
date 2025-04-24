@@ -1,5 +1,5 @@
 export const toHexString = (uint8Arr: Uint8Array) => {
-  return Array.from(uint8Arr, byte =>
+  return Array.from(uint8Arr, (byte) =>
     byte.toString(16).padStart(2, "0")
   ).join("");
 };
@@ -10,30 +10,42 @@ export const getPixel24 = (
   col: number,
   row: number
 ): string => {
-  if (!bmpData) return "Error";
+  if (!bmpData) {
+    console.log("AAAA");
+    return "Error";
+  }
   const offset = row * (rowSize + 4) + col * 6;
-  if (offset + 6 > bmpData.length) return "Error";
+  if (offset + 6 > bmpData.length) {
+    console.log("AAAB");
+    return "Error";
+  }
   const bgrHex = bmpData.slice(offset, offset + 6);
   const b = bgrHex.slice(0, 2);
   const g = bgrHex.slice(2, 4);
   const r = bgrHex.slice(4, 6);
   return `#${r}${g}${b}`.toUpperCase();
 };
-export const getPixel32 = (
-  bmpData: string | null,
-  rowSize: number,
-  col: number,
-  row: number
-): string => {
-  if (!bmpData) return "Error";
-  const offset = row * rowSize + col * 8;
-  if (offset + 6 > bmpData.length) return "Errorr";
-  const bgrHex = bmpData.slice(offset, offset + 6);
-  const b = bgrHex.slice(0, 2);
-  const g = bgrHex.slice(2, 4);
-  const r = bgrHex.slice(4, 6);
-  return `#${r}${g}${b}`.toUpperCase();
-};
+// export const getPixel32 = (
+//   bmpData: string | null,
+//   rowSize: number,
+//   col: number,
+//   row: number
+// ): string => {
+//   if (!bmpData) {
+//     console.log("AAAA");
+//     return "Error";
+//   }
+//   const offset = row * rowSize + col * 8;
+//   if (offset + 6 > bmpData.length) {
+//     console.log("AAAB");
+//     return "Error";
+//   }
+//   const bgrHex = bmpData.slice(offset, offset + 6);
+//   const b = bgrHex.slice(0, 2);
+//   const g = bgrHex.slice(2, 4);
+//   const r = bgrHex.slice(4, 6);
+//   return `#${r}${g}${b}`.toUpperCase();
+// };
 
 export const colorToNameX1 = (hex: string | null) => {
   if (!hex) return "Not found";

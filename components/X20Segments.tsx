@@ -15,7 +15,7 @@ export const X20Segments = ({ color }: { color: string }) => {
   const contrasted: string = getContrast(color);
   return (
     <View style={[Styles.X20Pixel, { backgroundColor: color }]}>
-      <Text style={[Styles.Text24, Styles.SMBoldCenter, { color: contrasted }]}>
+      <Text style={[Styles.Text24, { color: contrasted }]}>
         {color ? colorToNameX20(color) : "Loading hex data..."}
       </Text>
     </View>

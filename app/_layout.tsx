@@ -23,20 +23,14 @@ const RootLayout: React.FC = () => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "black" }}>
+    <View style={{ flex: 1, backgroundColor: "#000000" }}>
       <StatusBar hidden />
-      <LinearGradient
-        colors={["#0d3d6b", "#1a1a1a", "#800852"]}
-        locations={[0, 0.6, 1]}
-        style={{ flex: 1 }}
-      >
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="choose" options={{ headerShown: false }} />
-          <Stack.Screen name="imageID" options={{ headerShown: false }} />
-          <Stack.Screen name="display" options={{ headerShown: false }} />
-        </Stack>
-      </LinearGradient>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="choose" options={{ headerShown: false }} />
+        <Stack.Screen name="imageID" options={{ headerShown: false }} />
+        <Stack.Screen name="display" options={{ headerShown: false }} />
+      </Stack>
     </View>
   );
 };

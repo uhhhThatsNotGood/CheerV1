@@ -9,6 +9,7 @@ module.exports = {
         SpGtskReg: "SpGtskReg",
         SpGtskMid: "SpGtskMid",
         SpGtskSMBold: "SpGtskSMBold",
+        THSarabun: "THSarabun",
       },
     },
   },

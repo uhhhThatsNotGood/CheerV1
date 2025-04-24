@@ -1,5 +1,4 @@
 import { View, Alert, Text, Image } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +10,7 @@ import { Styles } from "../../hooks/styles";
 
 import { toHexString, getPixel24, colorToNameX1 } from "../../hooks/bmpUtils";
 import { imageMapX1 } from "../../hooks/getImage";
-import { BackButton } from "../../components/BackButton";
+import { BackButton, HeaderLabel } from "../../components/Header";
 
 const seatToIndex = (seat: string) => {
   return seat.charCodeAt(0) - 65;
@@ -56,7 +55,7 @@ const Display = () => {
       const bmpData = toHexString(Uint8Arr).slice(108);
       const data = getPixel24(
         bmpData,
-        50 * 6,
+        300,
         posToIndex(position),
         seatToIndex(seat)
       );
@@ -84,43 +83,33 @@ const Display = () => {
     }
   }, [imgID, seat, position]);
   return (
-    <LinearGradient
-      colors={["#0d3d6b", "#1a1a1a", "#1a1a1a", "#800852"]}
-      locations={[0, 0.4, 0.6, 1]}
-      style={{ flex: 1 }}
-    >
-      <SafeAreaView style={{ flex: 1 }}>
-        <BackButton />
-        <View style={{ alignItems: "center" }}>
-          <Text style={[Styles.Text40, Styles.SMBoldCenter, Styles.Pad20]}>
-            {" "}
-            X1 โค้ด {imgID} {"\n"}( {seat}
-            {posToIndex(position) + 1} )
-          </Text>
-          <View
-            style={[
-              Styles.boRad,
-              Styles.X1Pixel,
-              { backgroundColor: pixelColor ?? "" },
-            ]}
+    <SafeAreaView style={Styles.Container}>
+      <BackButton />
+      <HeaderLabel />
+
+      <View style={Styles.MgT16}>
+        <Text style={[Styles.Text40, Styles.Mg20]}>
+          X1 โค้ด {imgID}
+          {"\n"}( {seat}
+          {posToIndex(position) + 1} )
+        </Text>
+        <View style={[Styles.X1Pixel, { backgroundColor: pixelColor ?? "" }]} />
+        <Text style={Styles.Text40}>
+          {pixelColor ? colorToNameX1(pixelColor) : "Loading hex data..."}
+        </Text>
+        <Text style={Styles.Text32}>Current Image </Text>
+        {imgID ? (
+          <Image
+            source={imageMapX1[imgID]}
+            style={Styles.ImgX1}
+            resizeMode="contain"
+            resizeMethod="scale"
           />
-          <Text style={Styles.Text40}>
-            {pixelColor ? colorToNameX1(pixelColor) : "Loading hex data..."}
-          </Text>
-          <Text style={Styles.Text32}>Current Image </Text>
-          {imgID ? (
-            <Image
-              source={imageMapX1[imgID]}
-              style={Styles.ImgX1}
-              resizeMode="contain"
-              resizeMethod="scale"
-            />
-          ) : (
-            <Text style={[Styles.Text32, Styles.LoadingBox]}>Loading...</Text>
-          )}
-        </View>
-      </SafeAreaView>
-    </LinearGradient>
+        ) : (
+          <Text style={[Styles.Text32, Styles.LoadingBox]}>Loading...</Text>
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 

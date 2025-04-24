@@ -1,5 +1,4 @@
 import { View, Alert, Text, Image } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,10 +8,10 @@ import { Asset } from "expo-asset";
 import "../../global.css";
 import { Styles } from "../../hooks/styles";
 
-import { toHexString, getPixel32 } from "../../hooks/bmpUtils";
+import { toHexString, getPixel24 } from "../../hooks/bmpUtils";
 import { imageMapX20 } from "../../hooks/getImage";
 import { X20Segments } from "../../components/X20Segments";
-import { BackButton } from "../../components/BackButton";
+import { BackButton, HeaderLabel } from "../../components/Header";
 
 const seatToIndex = (seat: string) => {
   return 4 * (seat.charCodeAt(0) - 65);
@@ -33,7 +32,7 @@ const getRegion = (
   for (let r = 0; r < regionHeight; r++) {
     const rowPixel: string[] = [];
     for (let c = 0; c < regionWidth; c++) {
-      const color = getPixel32(bmpData, rowSize, startCol + c, startRow + r);
+      const color = getPixel24(bmpData, rowSize, startCol + c, startRow + r);
       rowPixel.push(color);
     }
     region.push(rowPixel);
@@ -75,7 +74,7 @@ const X20display = () => {
       const bmpData = toHexString(Uint8Arr).slice(108);
       const data = getRegion(
         bmpData,
-        250 * 8,
+        250 * 6,
         seatToIndex(seat),
         posToIndex(position),
         4,
@@ -103,49 +102,46 @@ const X20display = () => {
   }, [imgID, seat, position]);
 
   return (
-    <LinearGradient
-      colors={["#0d3d6b", "#1a1a1a", "#1a1a1a", "#800852"]}
-      locations={[0, 0.4, 0.6, 1]}
-      style={{ flex: 1 }}
-    >
-      <SafeAreaView style={{ flex: 1 }}>
-        <BackButton />
-        <View style={{ alignItems: "center", flex: 1 }}>
-          <Text style={[Styles.Text40, Styles.SMBoldCenter, Styles.Pad20]}>
-            {" "}
-            X20 โค้ด {imgID}
-            {"\n"}( {seat} {posToIndex(position) / 5 + 1} )
+    <SafeAreaView style={Styles.Container}>
+      <BackButton />
+      <HeaderLabel />
+      <View>
+        <Text style={[Styles.Text40, Styles.Pad20]}>
+          {" "}
+          X20 โค้ด {imgID}
+          {"\n"}( {seat} {posToIndex(position) / 5 + 1} )
+        </Text>
+        {regionColor ? (
+          <View>
+            {regionColor.map((_, rowIndex, arr) => {
+              const row = arr[arr.length - 1 - rowIndex];
+              return (
+                <View key={rowIndex} className="flex flex-row">
+                  {row.map((color, colIndex) => {
+                    return <X20Segments key={colIndex} color={color} />;
+                  })}
+                </View>
+              );
+            })}
+          </View>
+        ) : (
+          <Text style={[Styles.Text40, Styles.LoadingBox]}>
+            Loading pixel grid...
           </Text>
-          {regionColor ? (
-            <View>
-              {regionColor.map((_, rowIndex, arr) => {
-                const row = arr[arr.length - 1 - rowIndex];
-                return (
-                  <View key={rowIndex} className="flex flex-row">
-                    {row.map((color, colIndex) => {
-                      return <X20Segments key={colIndex} color={color} />;
-                    })}
-                  </View>
-                );
-              })}
-            </View>
-          ) : (
-            <Text style={[Styles.Text40,Styles.LoadingBox]}>Loading pixel grid...</Text>
-          )}
+        )}
 
-          <Text style={Styles.Text32}>Current Image</Text>
-          {imgID ? (
-            <Image
-              source={imageMapX20[imgID]}
-              style={Styles.ImgX20}
-              resizeMode="contain"
-            />
-          ) : (
-            <Text style={Styles.Text32}>Loading...</Text>
-          )}
-        </View>
-      </SafeAreaView>
-    </LinearGradient>
+        <Text style={Styles.Text32}>Current Image</Text>
+        {imgID ? (
+          <Image
+            source={imageMapX20[imgID]}
+            style={Styles.ImgX20}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text style={Styles.Text32}>Loading...</Text>
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 
