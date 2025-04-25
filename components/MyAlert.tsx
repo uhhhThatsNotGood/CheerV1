@@ -18,7 +18,7 @@ export const MyAlert = ({
   if (!isVisible) return null;
   return (
     <View
-      style={[Styles.AlertContainer, { backgroundColor: "rgba(0,0,0,0.8)" }]}
+      style={[Styles.AlertContainer, { backgroundColor: "rgba(10,10,10,0.9)" }]}
     >
       <TouchableOpacity
         onPress={() => setVisible(false)}

@@ -4,28 +4,20 @@ import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import "../global.css";
-import { MyAlert } from "../components/newAlert";
-import { InfoHook } from "../hooks/storageLogic";
 import { Styles } from "../hooks/styles";
+import { MyAlert } from "../components/MyAlert";
+import useAlert from "../hooks/useAlert";
+import { InfoHook } from "../hooks/storageLogic";
 
 const App: React.FC = () => {
   const router = useRouter();
-  const [isVisible, setVisible] = useState<boolean>(false);
   const [seat, setSeat] = useState<string>("");
   const [position, setPosition] = useState<string>("");
-
-  let alertT: string = "Error";
-  let alertM: string = "Error Message";
+  const [alertState, ShowAlert, HideAlert] = useAlert();
 
   useEffect(() => {
     setSeat(seat.toUpperCase());
   }, [seat]);
-
-  const ShowAlert = (Topic: string, Message: string) => {
-    alertT = Topic;
-    alertM = Message;
-    setVisible(true);
-  };
 
   const CheckInfo = () => {
     const value = InfoHook(seat, position, "choose", router);
@@ -69,7 +61,7 @@ const App: React.FC = () => {
             value={seat}
             onChangeText={setSeat}
             placeholderTextColor={"#999999"}
-            className="border-4 border-pink-300 bg-pink-950 focus:scale-105 "
+            className="border-4 border-pink-300 bg-pink-950 focus:scale-105"
             style={Styles.TextInput}
           />
           <Text style={[Styles.Text32, Styles.Pad20]}>Column</Text>
@@ -93,12 +85,12 @@ const App: React.FC = () => {
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
-      {isVisible && (
+      {alertState.isVisible && (
         <MyAlert
-          isVisible={isVisible}
-          setVisible={setVisible}
-          Topic={alertT}
-          Message={alertM}
+          isVisible={alertState.isVisible}
+          setVisible={HideAlert}
+          Topic={alertState.topic}
+          Message={alertState.message}
         />
       )}
     </>

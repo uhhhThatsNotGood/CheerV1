@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { Styles } from "../hooks/styles";
-import { colorToNameX20 } from "../hooks/bmpUtils";
+import { colorToNameX20 } from "../hooks/bmpUtil";
 
 const getContrast = (hex: string) => {
   const color = hex.replace(/^#/, "");

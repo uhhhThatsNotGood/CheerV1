@@ -1,16 +1,19 @@
-import { View, Alert, Text, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import { Asset } from "expo-asset";
+import { useRouter } from "expo-router";
 
 import "../../global.css";
 import { Styles } from "../../hooks/styles";
 
-import { toHexString, getPixel24, colorToNameX1 } from "../../hooks/bmpUtils";
+import { toHexString, getPixel24, colorToNameX1 } from "../../hooks/bmpUtil";
 import { imageMapX1 } from "../../hooks/getImage";
 import { BackButton, HeaderLabel } from "../../components/Header";
+import { MyAlert } from "../../components/MyAlert";
+import useAlert from "../../hooks/useAlert";
 
 const seatToIndex = (seat: string) => {
   return seat.charCodeAt(0) - 65;
@@ -23,9 +26,11 @@ const Display = () => {
   const { imgID } = useLocalSearchParams() as {
     imgID?: string;
   };
+  const router = useRouter();
   const [seat, setSeat] = useState<string>("");
   const [position, setPosition] = useState<string>("");
   const [pixelColor, setPixelColor] = useState<string | null>(null);
+  const [alertState, ShowAlert, HideAlert] = useAlert();
 
   const LoadSeatPosition = async () => {
     try {
@@ -34,7 +39,8 @@ const Display = () => {
       if (s) setSeat(s);
       if (p) setPosition(p);
     } catch (e) {
-      console.log(e, "ErrorLoadingSeatPosition");
+      ShowAlert("Error", "Error loading seat/position");
+      router.back();
     }
   };
 
@@ -66,8 +72,9 @@ const Display = () => {
         await AsyncStorage.setItem(cachedKeys, data);
       }
     } catch (e) {
-      console.log(e, "ErrorFetchingData");
-      Alert.alert("Error", "Failed to decode BMP.");
+      ShowAlert("Error", "Error loading/decoding bmp files");
+      router.back();
+      return;
     }
   };
 
@@ -83,33 +90,48 @@ const Display = () => {
     }
   }, [imgID, seat, position]);
   return (
-    <SafeAreaView style={Styles.Container}>
-      <BackButton />
-      <HeaderLabel />
+    <>
+      <SafeAreaView style={Styles.Container}>
+        <BackButton />
+        <HeaderLabel />
 
-      <View style={Styles.MgT16}>
-        <Text style={[Styles.Text40, Styles.Mg20]}>
-          X1 โค้ด {imgID}
-          {"\n"}( {seat}
-          {posToIndex(position) + 1} )
-        </Text>
-        <View style={[Styles.X1Pixel, { backgroundColor: pixelColor ?? "" }]} />
-        <Text style={Styles.Text40}>
-          {pixelColor ? colorToNameX1(pixelColor) : "Loading hex data..."}
-        </Text>
-        <Text style={Styles.Text32}>Current Image </Text>
-        {imgID ? (
-          <Image
-            source={imageMapX1[imgID]}
-            style={Styles.ImgX1}
-            resizeMode="contain"
-            resizeMethod="scale"
+        <View style={Styles.MgT16}>
+          <Text style={[Styles.Text40, Styles.Mg20]}>
+            X1 โค้ด {imgID}
+            {"\n"}( {seat}
+            {posToIndex(position) + 1} )
+          </Text>
+          <View
+            style={[Styles.X1Pixel, { backgroundColor: pixelColor ?? "" }]}
           />
-        ) : (
-          <Text style={[Styles.Text32, Styles.LoadingBox]}>Loading...</Text>
-        )}
-      </View>
-    </SafeAreaView>
+          <Text style={Styles.Text40}>
+            {pixelColor ? colorToNameX1(pixelColor) : "Loading hex data..."}
+          </Text>
+          <Text style={Styles.Text32}>Current Image </Text>
+          {imgID ? (
+            <Image
+              source={imageMapX1[imgID]}
+              style={Styles.ImgX1}
+              resizeMode="contain"
+              resizeMethod="scale"
+            />
+          ) : (
+            <Text style={[Styles.Text32, Styles.LoadingBox]}>Loading...</Text>
+          )}
+        </View>
+      </SafeAreaView>
+      {alertState.isVisible && (
+        <MyAlert
+          isVisible={alertState.isVisible}
+          setVisible={() => {
+            HideAlert;
+            router.back();
+          }}
+          Topic={alertState.topic}
+          Message={alertState.message}
+        />
+      )}
+    </>
   );
 };
 
