@@ -35,7 +35,7 @@ export const HeaderLabel = () => {
   );
   return (
     <View style={Styles.GlobalSeatPos} className="pl-1 pr-1">
-      <Text style={Styles.Text32}>
+      <Text style={Styles.Text24}>
         {seat}
         {position}
       </Text>

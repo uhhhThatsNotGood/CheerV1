@@ -100,7 +100,7 @@ export const Styles = ScaledSheet.create({
     borderRadius: "8@ms",
     position: "absolute",
     width: "64@ms",
-    height: "48@ms",
+    height: "36@ms",
     top: "20@ms",
     right: "24@ms",
     alignItems: "center",

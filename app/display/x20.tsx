@@ -109,9 +109,8 @@ const X20display = () => {
         <HeaderLabel />
         <View>
           <Text style={[Styles.Text40, Styles.Pad20]}>
-            {" "}
-            X20 โค้ด {imgID}
-            {"\n"}( {seat} {posToIndex(position) / 5 + 1} )
+            {" ( 1 : 20 )"}
+            {"\n"}Code : {imgID}
           </Text>
           {regionColor ? (
             <View>
@@ -133,15 +132,18 @@ const X20display = () => {
           )}
 
           <Text style={Styles.Text32}>Current Image</Text>
-          {imgID ? (
-            <Image
-              source={imageMapX20[imgID]}
-              style={Styles.ImgX20}
-              resizeMode="contain"
-            />
-          ) : (
-            <Text style={Styles.Text32}>Loading...</Text>
-          )}
+          <View style={{ alignItems: "center" }}>
+            {imgID ? (
+              <Image
+                source={imageMapX20[imgID]}
+                style={Styles.ImgX20}
+                className=" items-center"
+                resizeMode="contain"
+              />
+            ) : (
+              <Text style={Styles.Text32}>Loading...</Text>
+            )}
+          </View>
         </View>
       </SafeAreaView>
       {alertState.isVisible && (

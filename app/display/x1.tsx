@@ -97,9 +97,7 @@ const Display = () => {
 
         <View style={Styles.MgT16}>
           <Text style={[Styles.Text40, Styles.Mg20]}>
-            X1 โค้ด {imgID}
-            {"\n"}( {seat}
-            {posToIndex(position) + 1} )
+            {" ( 1 : 1 )\n"} Code : {imgID}
           </Text>
           <View
             style={[Styles.X1Pixel, { backgroundColor: pixelColor ?? "" }]}
