@@ -61,7 +61,7 @@ const App: React.FC = () => {
             value={seat}
             onChangeText={setSeat}
             placeholderTextColor={"#999999"}
-            className="border-4 border-pink-300 bg-pink-950 focus:scale-105"
+            className="border-4 border-pink-400 bg-pink-950 focus:scale-105"
             style={Styles.TextInput}
           />
           <Text style={[Styles.Text32, Styles.Pad20]}>Column</Text>

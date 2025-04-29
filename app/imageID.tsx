@@ -81,7 +81,7 @@ const ImageID = () => {
               style={Styles.GoButton}
               className={`mt-8 ${
                 id == "1"
-                  ? "border-pink-300 bg-pink-950"
+                  ? "border-pink-400 bg-pink-950"
                   : "border-blue-400 bg-blue-950"
               } `}
               onPress={checkID}

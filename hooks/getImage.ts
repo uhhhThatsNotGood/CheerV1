@@ -28,7 +28,7 @@ export const imageMapX20: { [key: string]: any } = {
 };
 
 export const imageMapX1: { [key: string]: any } = {
-  "1": require("../assets/x1/image1.bmp"),
-  "2": require("../assets/x1/image2.bmp"),
-  "3": require("../assets/x1/image3.bmp"),
+  "1": require("../assets/x1/img1.bmp"),
+  "2": require("../assets/x1/img2.bmp"),
+  "3": require("../assets/x1/img3.bmp"),
 };

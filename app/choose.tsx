@@ -21,7 +21,7 @@ const Home = () => {
         <Text style={[Styles.Text48, Styles.Pad20]}>Selection</Text>
         <TouchableOpacity
           style={Styles.Choose}
-          className="border-8 border-pink-300 bg-pink-950"
+          className="border-8 border-pink-400 bg-pink-950"
           onPress={() => push("1")}
         >
           <Text style={Styles.Text72}>1 : 1</Text>
