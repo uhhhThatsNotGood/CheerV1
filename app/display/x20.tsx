@@ -1,10 +1,11 @@
 import { View, Text, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import { Asset } from "expo-asset";
 import { useRouter } from "expo-router";
+//import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native";
 
 import "../../global.css";
 import { Styles } from "../../hooks/styles";
@@ -107,7 +108,7 @@ const X20display = () => {
       <SafeAreaView style={Styles.Container}>
         <BackButton />
         <HeaderLabel />
-        <View>
+        <View style={Styles.MgT64}>
           <Text style={[Styles.Text40, Styles.Pad20]}>
             {" ( 1 : 20 )"}
             {"\n"}Code : {imgID}

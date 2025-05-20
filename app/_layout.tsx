@@ -2,7 +2,6 @@ import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import useFonts from "../hooks/useFonts";
 import * as SplashScreen from "expo-splash-screen";
-import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 

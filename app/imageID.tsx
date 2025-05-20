@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useCallback, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
+//import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native";
 
 import "../global.css";
 import { Styles } from "../hooks/styles";
@@ -54,7 +55,7 @@ const ImageID = () => {
       <SafeAreaView style={Styles.Container}>
         <BackButton />
         <HeaderLabel />
-        <View style={Styles.MgT16}>
+        <View style={Styles.MgT64}>
           <Text style={[Styles.Text40, Styles.Mg20]}>( 1 : {id} )</Text>
           <Text style={[Styles.Text48, Styles.Mg20]}>{input || "..."}</Text>
           <View className="flex-1 flex-row flex-shrink flex-wrap items-center justify-center">

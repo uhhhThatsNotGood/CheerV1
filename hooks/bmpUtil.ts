@@ -11,12 +11,10 @@ export const getPixel24 = (
   row: number
 ): string => {
   if (!bmpData) {
-    console.log("AAAA");
     return "Error";
   }
   const offset = row * (rowSize + 4) + col * 6;
   if (offset + 6 > bmpData.length) {
-    console.log("AAAB");
     return "Error";
   }
   const bgrHex = bmpData.slice(offset, offset + 6);

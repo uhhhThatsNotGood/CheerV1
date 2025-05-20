@@ -19,6 +19,7 @@ const useFonts = () => {
         });
       } catch (e) {
         console.log("Error in useFont hooks", e);
+        return;
       } finally {
         setFontsLoaded(true);
       }

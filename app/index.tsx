@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, ScrollView, TextInput } from "react-native";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+//import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native";
 
 import "../global.css";
 import { Styles } from "../hooks/styles";
@@ -45,7 +46,7 @@ const App: React.FC = () => {
     <>
       <ScrollView style={{ backgroundColor: "#000000" }}>
         <SafeAreaView style={Styles.Container}>
-          <Text style={[Styles.Text48, Styles.MgT16]}>
+          <Text style={[Styles.Text48, Styles.MgT64]}>
             {" "}
             Welcome to {"\n"}SkCheer
           </Text>

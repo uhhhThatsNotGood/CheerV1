@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+//import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native";
 
 import "../global.css";
 import { Styles } from "../hooks/styles";
@@ -17,7 +18,7 @@ const Home = () => {
     <SafeAreaView style={Styles.Container}>
       <BackButton />
       <HeaderLabel />
-      <View>
+      <View style={Styles.MgT64}>
         <Text style={[Styles.Text48, Styles.Pad20]}>Selection</Text>
         <TouchableOpacity
           style={Styles.Choose}
